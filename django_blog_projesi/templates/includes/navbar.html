@@ -1,0 +1,40 @@
+
+<nav class="navbar navbar-toggleable-md navbar-inverse  fixed-top bg-inverse">
+  <div class="container">
+  <!--navbar navbar-expand-lg navbar-dark bg-dark-->
+  
+    <a class="navbar-brand" href="{% url 'index' %}">Battal Blog</a>
+
+      <div class="collapse navbar-collapse" id="navbarsExample07">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'about' %}">Hakkımda</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'article:articles' %}">Makaleler</a>
+          </li>
+        </ul>
+        <ul class= "navbar-nav ml-auto">
+        {% if request.user.is_authenticated %}
+        
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'article:dashboard' %}">Kontrol Paneli</a>        
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'user:logout' %}">Çıkış Yap</a>        
+            </li>
+        
+        {% else %}
+        
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'user:login' %}">Oturum Aç</a>        
+            </li>
+        {% endif %}
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'user:register' %}">Kayıt ol</a>        
+          </li>
+          
+        </ul>
+      </div>
+  </div>
+</nav>

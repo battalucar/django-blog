@@ -1,0 +1,73 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+    <!-- Sidebar Widgets Column -->
+            <div class="col-md-8">
+
+                <!-- Search Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header">Ara</h5>
+                        <form>
+                        {% csrf_token %}
+                            <div class="input-group mb-0">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default"></span>
+                                </div>
+                                <input type="search" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="keyword" placeholder="Aramak istediğiniz kelimeyi giriniz...">
+                                <button style="color:black"class="btn btn-outline-secondary" type="submit">Ara</button>
+                        </form>
+                    </div>
+                </div>
+
+    {% if articles %}
+        {% for article in articles %}
+        
+            <div class="container">
+                <div class="row">
+                    
+                    <!-- <div class="col-md-6 offset-md-3"> Ortalama-->
+
+                    <!-- Post Content Column -->
+                    <div class="col-lg-8">
+
+                        <h2>Makaleler</h2><hr>
+                        
+                        <!-- Title -->
+                        <a href="{% url 'article:detail' article.id %}"><h5 class="mt-4">{{article.title}}</h5></a>   
+
+                        <!-- Author -->
+                        <p class="lead">
+                        <b>by</b> {{article.author}}
+                        </p>
+                        <hr>
+
+                        <!-- Date/Time -->
+                        <p>{{article.created_date}} tarihinde oluşturuldu.</p>
+                        <hr>
+
+                        <!-- Preview Image -->
+                        {% if article.article_image %}
+                            
+                            <img class="img-fluid rounded" src="{{article.article_image.url}}" alt="image">
+                            
+                        {% endif %}  
+
+                        <!-- Post Content -->
+                        <p class="lead">{{article.content|safe|truncatewords:10}}</p> 
+                        <a href="{% url 'article:detail' article.id %}" class="btn btn-danger">Devamını oku...</a>
+                        <hr>
+
+                    </div>
+
+        {% endfor %}
+                </div>
+            </div>
+            
+    {% else %}
+
+        <div class="alert alert-danger">Makale Bulunamadı!</div>
+
+    {% endif %}
+
+{% endblock body %}
